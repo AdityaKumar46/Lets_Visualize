@@ -110,7 +110,7 @@ export default function Sort() {
   }*/
 
   function mergeSort() {
-    const animations = getMergeSortAnimations(arr1);
+    const animations = getMergeSortAnimations(this.state.array);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('array-bar');
       const isColorChange = i % 3 !== 2;
@@ -122,14 +122,14 @@ export default function Sort() {
         setTimeout(() => {
           barOneStyle.backgroundColor = color;
           barTwoStyle.backgroundColor = color;
-        }, i * isDelay);
+        }, i * ANIMATION_SPEED_MS);
       } else {
         setTimeout(() => {
           const [barOneIdx, newHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${newHeight}px`;
          // barOneStyle.backgroundColor = "yellow"
-        }, i * isDelay);
+        }, i * ANIMATION_SPEED_MS);
       }
     }
   }

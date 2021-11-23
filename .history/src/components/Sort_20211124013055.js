@@ -109,30 +109,32 @@ export default function Sort() {
       }, arrayBars.length * isDelay);
   }*/
 
-  function mergeSort() {
-    const animations = getMergeSortAnimations(arr1);
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const isColorChange = i % 3 !== 2;
-      if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? "red" : "blue";
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * isDelay);
-      } else {
-        setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          barOneStyle.height = `${newHeight}px`;
-         // barOneStyle.backgroundColor = "yellow"
-        }, i * isDelay);
-      }
+      const mergeSort = () => {
+        mergeSort() {
+          const animations = getMergeSortAnimations(this.state.array);
+          for (let i = 0; i < animations.length; i++) {
+            const arrayBars = document.getElementsByClassName('array-bar');
+            const isColorChange = i % 3 !== 2;
+            if (isColorChange) {
+              const [barOneIdx, barTwoIdx] = animations[i];
+              const barOneStyle = arrayBars[barOneIdx].style;
+              const barTwoStyle = arrayBars[barTwoIdx].style;
+              const color = i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
+              setTimeout(() => {
+                barOneStyle.backgroundColor = color;
+                barTwoStyle.backgroundColor = color;
+              }, i * ANIMATION_SPEED_MS);
+            } else {
+              setTimeout(() => {
+                const [barOneIdx, newHeight] = animations[i];
+                const barOneStyle = arrayBars[barOneIdx].style;
+                barOneStyle.height = `${newHeight}px`;
+               // barOneStyle.backgroundColor = "yellow"
+              }, i * ANIMATION_SPEED_MS);
+            }
+          }
+        }
     }
-  }
 
     return (
         <>

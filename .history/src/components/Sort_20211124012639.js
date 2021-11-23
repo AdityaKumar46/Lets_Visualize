@@ -1,20 +1,23 @@
 import "./Sort.css";
-import "./bubble.css"
 import React, { useEffect, useState, useRef } from "react";
-//import Bar from "./Bar";
+import Bar from "./Bar";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import {getMergeSortAnimations} from './Merge';
+import { getQuickSortAnimations } from "../components/Algo/Quicksort"
 
 
-export default function Sort() {
+export default function Quick() {
+
+    const DELAY = 1;
     const ACCESSED_COLOUR = 'red';
     const SORTED_COLOUR = 'blue';
+
     const [arr1, setArr1] = React.useState([]);
-    const [value, setValue] = useState(0)
+    const [value, setValue] = useState(0);
     const [isSorting, setIsSorting] = useState(false);
     const [isSorted, setIsSorted] = useState(false);
     const [isDelay, setIsDelay] = useState(1);
+    
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -22,117 +25,101 @@ export default function Sort() {
     }, [])
 
     function randomIntFromInterval(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
-
-  function resetArray(value1) {
-      if (isSorting) return;
-      if (isSorted) resetArrayColour();
-      setIsSorted(false);
-      const array = [];
-      for (let i = 1; i <= value1; i++) {
-          array.push(randomIntFromInterval(0, 500));
-      }
-      setArr1(array);
-  }
-
-  const onSliderChange = value => {
-      resetArray(value);
-      setValue(value);
-  };
-
-  const onDelay = value =>{
-      setIsDelay(value+0.5);
-  }
-
-  function resetArrayColour() {
-      const arrayBars = containerRef.current.children;
-      for (let i = 0; i < arr1.length; i++) {
-          const arrayBarStyle = arrayBars[i].style;
-          arrayBarStyle.backgroundColor = '';
-      }
-  }
-
-  /**function animateArrayUpdate(animations) {
-      if (isSorting) return;
-      setIsSorting(true);
-      animations.forEach(([comparison, swapped], index) => {
-          setTimeout(() => {
-              if (!swapped) {
-                  if (comparison.length === 2) {
-                      const [i, j] = comparison;
-                      animateArrayAccess(i);
-                      animateArrayAccess(j);
-                  } else {
-                      const [i] = comparison;
-                      animateArrayAccess(i);
-                  }
-              } else {
-                  setArr1((prevArr) => {
-                      const [k, newValue] = comparison;
-                      const newArr = [...prevArr];
-                      newArr[k] = newValue;
-                      return newArr;
-                  });
-              }
-          }, index * isDelay);
-      });
-      setTimeout(() => {
-          animateSortedArray();
-      }, animations.length * isDelay);
-  }
-
-  function animateArrayAccess(index) {
-      const arrayBars = containerRef.current.children;
-      const arrayBarStyle = arrayBars[index].style;
-      setTimeout(() => {
-          arrayBarStyle.backgroundColor = ACCESSED_COLOUR;
-      }, isDelay);
-      setTimeout(() => {
-          arrayBarStyle.backgroundColor = '';
-      }, isDelay * 2);
-  }
-
-  function animateSortedArray() {
-      const arrayBars = containerRef.current.children;
-      for (let i = 0; i < arrayBars.length; i++) {
-          const arrayBarStyle = arrayBars[i].style;
-          setTimeout(
-              () => (arrayBarStyle.backgroundColor = SORTED_COLOUR),
-              i * isDelay,
-          );
-      }
-      setTimeout(() => {
-          setIsSorted(true);
-          setIsSorting(false);
-      }, arrayBars.length * isDelay);
-  }*/
-
-  function mergeSort() {
-    const animations = getMergeSortAnimations(arr1);
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const isColorChange = i % 3 !== 2;
-      if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? "red" : "blue";
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * isDelay);
-      } else {
-        setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          barOneStyle.height = `${newHeight}px`;
-         // barOneStyle.backgroundColor = "yellow"
-        }, i * isDelay);
-      }
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
-  }
+
+
+    function resetArray(value1) {
+        if (isSorting) return;
+        if (isSorted) resetArrayColour();
+        setIsSorted(false);
+        const array = [];
+        for (let i = 1; i <= value1; i++) {
+            array.push(randomIntFromInterval(0, 500));
+        }
+        setArr1(array);
+    }
+
+    const onSliderChange = value => {
+        resetArray(value);
+        setValue(value);
+    };
+
+    const onDelay = value =>{
+        setIsDelay(value+0.5);
+        //setIsDelay(prevState => prevState + 0.5);
+    }
+
+    function resetArrayColour() {
+        const arrayBars = containerRef.current.children;
+        for (let i = 0; i < arr1.length; i++) {
+            const arrayBarStyle = arrayBars[i].style;
+            arrayBarStyle.backgroundColor = '';
+        }
+        //setArr1([]);
+
+    }
+
+    const quickSort = () => {
+        const animations = getQuickSortAnimations(arr1);
+        animateArrayUpdate(animations);
+    }
+
+    function animateArrayUpdate(animations) {
+        if (isSorting) return;
+        setIsSorting(true);
+        animations.forEach(([comparison, swapped], index) => {
+            setTimeout(() => {
+                if (!swapped) {
+                    if (comparison.length === 2) {
+                        const [i, j] = comparison;
+                        animateArrayAccess(i);
+                        animateArrayAccess(j);
+                    } else {
+                        const [i] = comparison;
+                        animateArrayAccess(i);
+                    }
+                } else {
+                    setArr1((prevArr) => {
+                        const [k, newValue] = comparison;
+                        const newArr = [...prevArr];
+                        newArr[k] = newValue;
+                        return newArr;
+                    });
+                }
+            }, index * isDelay);
+        });
+        setTimeout(() => {
+            animateSortedArray();
+        }, animations.length * isDelay);
+    }
+
+    function animateArrayAccess(index) {
+        const arrayBars = containerRef.current.children;
+        const arrayBarStyle = arrayBars[index].style;
+        setTimeout(() => {
+            arrayBarStyle.backgroundColor = ACCESSED_COLOUR;
+        }, isDelay);
+        setTimeout(() => {
+            arrayBarStyle.backgroundColor = '';
+        }, isDelay * 2);
+    }
+
+    function animateSortedArray() {
+        const arrayBars = containerRef.current.children;
+        for (let i = 0; i < arrayBars.length; i++) {
+            const arrayBarStyle = arrayBars[i].style;
+            setTimeout(
+                () => (arrayBarStyle.backgroundColor = SORTED_COLOUR),
+                i * isDelay,
+            );
+        }
+        setTimeout(() => {
+            setIsSorted(true);
+            setIsSorting(false);
+        }, arrayBars.length * isDelay);
+    }
+
 
     return (
         <>
@@ -164,9 +151,9 @@ export default function Sort() {
                         <p><strong>{value}</strong></p>
                     </div>
                     <div className="array-container m-2 ms-3">
-                        <button type="button" className="btn btn-dark m-2" onClick={mergeSort}>Sort</button>
+                        <button type="button" className="btn btn-dark m-2" onClick={quickSort}>Sort</button>
                         <button type="button" className="btn btn-danger m-2" onClick={resetArrayColour}>Reset Array</button>
-                        <a type="button" className="btn btn-warning m-2" href="/">Force Stop</a>
+                        <a type="button" className="btn btn-warning m-2" href="/quick">Force Stop</a>
                     </div>
                     <div style={{ width: 250, margin: 15 }}>
                         <h6>Delay</h6>
@@ -214,8 +201,8 @@ export default function Sort() {
                             <ul>
                                 <li className="m-2"><strong>Best Case [Big-omega]:<div style={{ color: '#044605' }}>O(n*log n)</div></strong></li>
                                 <li className="m-2"><strong>Average Case [Big-omega]:<div style={{ color: 'rgb(92 60 3)' }}>O(n*log n)</div></strong></li>
-                                <li className="m-2"><strong>Worst Case [Big-omega]:<div style={{ color: "#cb0303" }}>O(n*log n)</div></strong></li>
-                                <li className="m-2"><strong>Worst case space complexity:<div style={{ color: "#cb0303" }}>Θ(n) auxiliary</div></strong></li>                    
+                                <li className="m-2"><strong>Worst Case [Big-omega]:<div style={{ color: "#cb0303" }}>O(n^2)</div></strong></li>
+                                <li className="m-2"><strong>Worst case space complexity:<div style={{ color: "#cb0303" }}>O(1) auxiliary</div></strong></li>
                             </ul>
                         </div>
                     </div>
@@ -226,4 +213,3 @@ export default function Sort() {
         </>
     );
 }
-

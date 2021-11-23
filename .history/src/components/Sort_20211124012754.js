@@ -44,6 +44,7 @@ export default function Sort() {
 
   const onDelay = value =>{
       setIsDelay(value+0.5);
+      //setIsDelay(prevState => prevState + 0.5);
   }
 
   function resetArrayColour() {
@@ -52,9 +53,11 @@ export default function Sort() {
           const arrayBarStyle = arrayBars[i].style;
           arrayBarStyle.backgroundColor = '';
       }
+      //setArr1([]);
+
   }
 
-  /**function animateArrayUpdate(animations) {
+  function animateArrayUpdate(animations) {
       if (isSorting) return;
       setIsSorting(true);
       animations.forEach(([comparison, swapped], index) => {
@@ -107,32 +110,12 @@ export default function Sort() {
           setIsSorted(true);
           setIsSorting(false);
       }, arrayBars.length * isDelay);
-  }*/
-
-  function mergeSort() {
-    const animations = getMergeSortAnimations(arr1);
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const isColorChange = i % 3 !== 2;
-      if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? "red" : "blue";
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * isDelay);
-      } else {
-        setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          barOneStyle.height = `${newHeight}px`;
-         // barOneStyle.backgroundColor = "yellow"
-        }, i * isDelay);
-      }
-    }
   }
+
+      const mergeSort = () => {
+        const animations = getMergeSortAnimations(arr1);
+        animateArrayUpdate(animations);
+    }
 
     return (
         <>

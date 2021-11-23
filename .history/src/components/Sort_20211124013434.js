@@ -122,14 +122,14 @@ export default function Sort() {
         setTimeout(() => {
           barOneStyle.backgroundColor = color;
           barTwoStyle.backgroundColor = color;
-        }, i * isDelay);
+        }, i * 2);
       } else {
         setTimeout(() => {
           const [barOneIdx, newHeight] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           barOneStyle.height = `${newHeight}px`;
          // barOneStyle.backgroundColor = "yellow"
-        }, i * isDelay);
+        }, i * 2);
       }
     }
   }

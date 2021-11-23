@@ -22,117 +22,98 @@ export default function Sort() {
     }, [])
 
     function randomIntFromInterval(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min);
-  }
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
 
 
-  function resetArray(value1) {
-      if (isSorting) return;
-      if (isSorted) resetArrayColour();
-      setIsSorted(false);
-      const array = [];
-      for (let i = 1; i <= value1; i++) {
-          array.push(randomIntFromInterval(0, 500));
-      }
-      setArr1(array);
-  }
+    function resetArray(value1) {
+        if (isSorting) return;
+        if (isSorted) resetArrayColour();
+        setIsSorted(false);
+        const array = [];
+        for (let i = 1; i <=value1; i++) {
+            array.push(randomIntFromInterval(0, 500));
+        }
+        setArr1(array);
+    }
 
-  const onSliderChange = value => {
-      resetArray(value);
-      setValue(value);
-  };
+    const onSliderChange = value => {
+        resetArray(value);
+        setValue(value);
+    };
 
-  const onDelay = value =>{
-      setIsDelay(value+0.5);
-  }
+    const onDelay = value =>{
+        setIsDelay(value+0.5);
+        //setIsDelay(prevState => prevState + 0.5);
+    }
 
-  function resetArrayColour() {
-      const arrayBars = containerRef.current.children;
-      for (let i = 0; i < arr1.length; i++) {
-          const arrayBarStyle = arrayBars[i].style;
-          arrayBarStyle.backgroundColor = '';
-      }
-  }
+    function resetArrayColour() {
+        const arrayBars = containerRef.current.children;
+        for (let i = 0; i < arr1.length; i++) {
+            const arrayBarStyle = arrayBars[i].style;
+            arrayBarStyle.backgroundColor = '';
+        }
+    }
 
-  /**function animateArrayUpdate(animations) {
-      if (isSorting) return;
-      setIsSorting(true);
-      animations.forEach(([comparison, swapped], index) => {
+    function animateArrayUpdate(animations) {
+        if (isSorting) return;
+        setIsSorting(true);
+        animations.forEach(([comparison, swapped], index) => {
           setTimeout(() => {
-              if (!swapped) {
-                  if (comparison.length === 2) {
-                      const [i, j] = comparison;
-                      animateArrayAccess(i);
-                      animateArrayAccess(j);
-                  } else {
-                      const [i] = comparison;
-                      animateArrayAccess(i);
-                  }
+            if (!swapped) {
+              if (comparison.length === 2) {
+                const [i, j] = comparison;
+                animateArrayAccess(i);
+                animateArrayAccess(j);
               } else {
-                  setArr1((prevArr) => {
-                      const [k, newValue] = comparison;
-                      const newArr = [...prevArr];
-                      newArr[k] = newValue;
-                      return newArr;
-                  });
+                const [i] = comparison;
+                animateArrayAccess(i);
               }
+            } else {
+              setArr1((prevArr) => {
+                const [k, newValue] = comparison;
+                const newArr = [...prevArr];
+                newArr[k] = newValue;
+                return newArr;
+              });
+            }
           }, index * isDelay);
-      });
-      setTimeout(() => {
+        });
+        setTimeout(() => {
           animateSortedArray();
-      }, animations.length * isDelay);
-  }
-
-  function animateArrayAccess(index) {
-      const arrayBars = containerRef.current.children;
-      const arrayBarStyle = arrayBars[index].style;
-      setTimeout(() => {
+        }, animations.length * isDelay);
+      }
+    
+      function animateArrayAccess(index) {
+        const arrayBars = containerRef.current.children;
+        const arrayBarStyle = arrayBars[index].style;
+        setTimeout(() => {
           arrayBarStyle.backgroundColor = ACCESSED_COLOUR;
-      }, isDelay);
-      setTimeout(() => {
+        }, isDelay);
+        setTimeout(() => {
           arrayBarStyle.backgroundColor = '';
-      }, isDelay * 2);
-  }
-
-  function animateSortedArray() {
-      const arrayBars = containerRef.current.children;
-      for (let i = 0; i < arrayBars.length; i++) {
+        }, isDelay * 2);
+      }
+    
+      function animateSortedArray() {
+        const arrayBars = containerRef.current.children;
+        for (let i = 0; i < arrayBars.length; i++) {
           const arrayBarStyle = arrayBars[i].style;
           setTimeout(
-              () => (arrayBarStyle.backgroundColor = SORTED_COLOUR),
-              i * isDelay,
+            () => (arrayBarStyle.backgroundColor = SORTED_COLOUR),
+            i * isDelay,
           );
-      }
-      setTimeout(() => {
+        }
+        setTimeout(() => {
           setIsSorted(true);
           setIsSorting(false);
-      }, arrayBars.length * isDelay);
-  }*/
-
-  function mergeSort() {
-    const animations = getMergeSortAnimations(arr1);
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const isColorChange = i % 3 !== 2;
-      if (isColorChange) {
-        const [barOneIdx, barTwoIdx] = animations[i];
-        const barOneStyle = arrayBars[barOneIdx].style;
-        const barTwoStyle = arrayBars[barTwoIdx].style;
-        const color = i % 3 === 0 ? "red" : "blue";
-        setTimeout(() => {
-          barOneStyle.backgroundColor = color;
-          barTwoStyle.backgroundColor = color;
-        }, i * isDelay);
-      } else {
-        setTimeout(() => {
-          const [barOneIdx, newHeight] = animations[i];
-          const barOneStyle = arrayBars[barOneIdx].style;
-          barOneStyle.height = `${newHeight}px`;
-         // barOneStyle.backgroundColor = "yellow"
-        }, i * isDelay);
+        }, arrayBars.length * isDelay);
       }
+
+      const mergeSort = () => {
+        const animations = getMergeSortAnimations(arr1);
+        animateArrayUpdate(animations);
     }
-  }
 
     return (
         <>

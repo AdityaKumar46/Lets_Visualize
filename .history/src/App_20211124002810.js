@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Sort from './components/Sort';
 import {
-  HashRouter,
+  HashRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
@@ -15,7 +15,7 @@ import Heap from './components/Heap';
 
 function App() {
   return (
-    <HashRouter>
+    <Router>
       <>
       <Navbar/>
       <Switch>
@@ -44,7 +44,7 @@ function App() {
           </Route>
         </Switch>
       </>
-    </HashRouter>   
+    </Router>   
   );
 }
 
