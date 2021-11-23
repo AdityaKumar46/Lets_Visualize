@@ -1,0 +1,31 @@
+.array-container {
+    position: inherit;
+    left: 150px;
+    margin: 15px;
+}
+
+
+.array-bar {
+    width: 10px;
+    background-color: turquoise;
+    display: inline-block;
+    margin: 0 auto;
+    display: flex;
+  }
+
+
+
+  .press1 {
+      padding: 15px;
+      display: inline-block;
+  }
+
+  .btn
+  {
+      font-weight: 700;
+  }
+  .press {
+    margin-left: 600px
+;
+}
+

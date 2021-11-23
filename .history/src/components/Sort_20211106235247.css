@@ -1,0 +1,32 @@
+
+.array-container {
+    position: inherit;
+    left: 150px;
+    margin: 15px;
+}
+
+
+.array-bar {
+    width: 10px;
+    background-color:rgb(43, 40, 40);
+    display: inline-block;
+    margin: 0 auto;
+    word-spacing: inherit;
+  }
+
+
+
+  .press1 {
+      padding: 15px;
+      display: inline-block;
+  }
+
+  .btn
+  {
+      font-weight: 700;
+  }
+  .press {
+    margin-left: 600px
+;
+}
+

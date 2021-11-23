@@ -1,0 +1,43 @@
+.array-container {
+    position: inherit;
+    margin: 15px;
+    display: flex;
+    width: 79%;
+}
+
+
+.array-bar {
+    width: 10px;
+    background-color:rgb(43, 40, 40);
+    display: inline-block;
+    margin: 2px;
+    align-content: center;
+  }
+
+  .sorty {
+      display: inline-flex;
+  }
+
+  .press1 {
+      padding: 15px;
+      display: inline-block;
+  }
+
+  .btn
+  {
+      font-weight: 700;
+  }
+  .press {
+    margin-left: 600px;
+}
+
+.barr {
+    background-color: grey;
+    position: fixed;
+    padding: 2em;
+    left: 94%;
+    top: 9%;
+    transform: translateX(-27%);
+    height: 660px;
+    width: 42%;
+}

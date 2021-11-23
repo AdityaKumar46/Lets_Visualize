@@ -1,0 +1,6 @@
+.array-container {
+    position: inherit;
+    margin: 15px;
+    display: flex;
+    width: 79%;
+}
