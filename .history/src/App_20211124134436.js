@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Sort from './components/Sort';
 import {
-  BrowserRouter as Router,
+  Router,
   Switch,
   Route,
 } from "react-router-dom";

@@ -60,6 +60,31 @@ export default function Quick() {
 
     }
 
+    const reset1= () => {
+        setArr1([]);
+        const animations = getQuickSortAnimations(arr1);
+        animations.forEach(([comparison, swapped], index) => {
+            setTimeout(() => {
+                if (!swapped) {
+                    if (comparison.length === 2) {
+                        const [i, j] = comparison;
+                        animateArrayAccess(i);
+                        animateArrayAccess(j);
+                    } else {
+                        const [i] = comparison;
+                        animateArrayAccess(i);
+                    }
+                } else {
+                    setArr1((prevArr) => {
+                        const [k, newValue] = comparison;
+                        const newArr = [...prevArr];
+                        newArr[k] = newValue;
+                        return newArr;
+                    });
+                }
+            }, index * isDelay);
+        });
+    }
 
     const quickSort = () => {
         const animations = getQuickSortAnimations(arr1);
@@ -155,6 +180,7 @@ export default function Quick() {
                         <button type="button" className="btn btn-dark m-2" onClick={quickSort}>Sort</button>
                         <button type="button" className="btn btn-danger m-2" onClick={resetArrayColour}>Reset Array</button>
                         <a type="button" className="btn btn-warning m-2" href="/quick">Force Stop</a>
+                        <button type="button" className="btn btn-danger m-2" onClick={reset1}>Reset Array</button>
                     </div>
                     <div style={{ width: 250, margin: 15 }}>
                         <h6>Delay</h6>

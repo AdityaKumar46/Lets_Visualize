@@ -60,6 +60,9 @@ export default function Quick() {
 
     }
 
+    const reset1= () => {
+        setArr([]);
+    }
 
     const quickSort = () => {
         const animations = getQuickSortAnimations(arr1);

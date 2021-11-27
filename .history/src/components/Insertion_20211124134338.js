@@ -1,14 +1,14 @@
 import "./Sort.css";
 import React, { useEffect, useState, useRef } from "react";
-import Bar from "./Bar";
+//import Bar from "./Bar";
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { getQuickSortAnimations } from "../components/Algo/Quicksort"
+import { getInsertionSortAnimations } from "../components/Algo/InsertionSort"
 
 
-export default function Quick() {
+export default function Insertion() {
 
-    const DELAY = 1;
+    // const DELAY = 1;
     const ACCESSED_COLOUR = 'red';
     const SORTED_COLOUR = 'blue';
 
@@ -17,7 +17,7 @@ export default function Quick() {
     const [isSorting, setIsSorting] = useState(false);
     const [isSorted, setIsSorted] = useState(false);
     const [isDelay, setIsDelay] = useState(1);
-    
+
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -45,9 +45,8 @@ export default function Quick() {
         setValue(value);
     };
 
-    const onDelay = value =>{
-        setIsDelay(value+0.5);
-        //setIsDelay(prevState => prevState + 0.5);
+    const onDelay = value => {
+        setIsDelay(value + 0.5);
     }
 
     function resetArrayColour() {
@@ -60,9 +59,8 @@ export default function Quick() {
 
     }
 
-
-    const quickSort = () => {
-        const animations = getQuickSortAnimations(arr1);
+    const insertSort = () => {
+        const animations = getInsertionSortAnimations(arr1);
         animateArrayUpdate(animations);
     }
 
@@ -152,9 +150,9 @@ export default function Quick() {
                         <p><strong>{value}</strong></p>
                     </div>
                     <div className="array-container m-2 ms-3">
-                        <button type="button" className="btn btn-dark m-2" onClick={quickSort}>Sort</button>
+                        <button type="button" className="btn btn-dark m-2" onClick={insertSort}>Sort</button>
                         <button type="button" className="btn btn-danger m-2" onClick={resetArrayColour}>Reset Array</button>
-                        <a type="button" className="btn btn-warning m-2" href="/quick">Force Stop</a>
+                        <a type="button" className="btn btn-warning m-2" href="/insertion">Force Stop</a>
                     </div>
                     <div style={{ width: 250, margin: 15 }}>
                         <h6>Delay</h6>
@@ -200,10 +198,12 @@ export default function Quick() {
                         <div>
                             <h6>Time Complexity:-</h6>
                             <ul>
-                                <li className="m-2"><strong>Best Case [Big-omega]:<div style={{ color: '#044605' }}>O(n*log n)</div></strong></li>
-                                <li className="m-2"><strong>Average Case [Big-omega]:<div style={{ color: 'rgb(92 60 3)' }}>O(n*log n)</div></strong></li>
-                                <li className="m-2"><strong>Worst Case [Big-omega]:<div style={{ color: "#cb0303" }}>O(n^2)</div></strong></li>
-                                <li className="m-2"><strong>Worst case space complexity:<div style={{ color: "#cb0303" }}>O(1) auxiliary</div></strong></li>
+                                <li className="m-2"><strong>Best Case [Big-omega]:<div style={{ color: '#044605' }}>Θ(n^2)</div></strong></li>
+                                <li className="m-2"><strong>Average Case [Big-omega]:<div style={{ color: 'rgb(92 60 3)' }}>Θ(n^2)</div></strong></li>
+                                <li className="m-2"><strong>Worst Case [Big-omega]:<div style={{ color: "#cb0303" }}>Θ(n^2)</div></strong></li>
+                                <li className="m-2"><strong>Worst case space complexity:<div style={{ color: "#cb0303" }}>
+                                    O(n^2) total, O(1) auxiliary
+                                </div></strong></li>
                             </ul>
                         </div>
                     </div>

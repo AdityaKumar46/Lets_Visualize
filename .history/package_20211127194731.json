@@ -19,8 +19,8 @@
     "web-vitals": "^1.0.1".
   },
 
-    "engines": { "node": "v12.18.4",
-    "npm": "6.14.6"},
+    `"engines": { "node": "v12.18.4",
+    "npm": "6.14.6"}`,
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
